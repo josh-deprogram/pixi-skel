@@ -1,6 +1,5 @@
-![SKELO](https://raw.githubusercontent.com/josh-deprogram/skelo/master/public/assets/images/skelo.png)
+<img src="https://raw.githubusercontent.com/josh-deprogram/skelo/master/public/assets/images/skelo.png" width="150">
 
-# SKELO
 'skeleton project' to get up and running quickly with an interactive app, utilising PixiJS (v4) & React & Create-React-App. CRA chosen due it being great as a base react project (imo).
 
 The aim of all this to provide a great base for interactive canvas projects, with functionailty to easily implement multiple scenes, navs, and other useful app structure stuff in a DOM wrapper.
