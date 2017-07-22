@@ -29,7 +29,7 @@ export default class Scene {
             this.resume();
         } else {        
             this.started = true;
-            this.image = new Image('assets/images/skull.png', true);
+            this.image = new Image('assets/images/title.png', true);
             this.image.x = SCREEN.centerX;
             this.image.y = SCREEN.centerY;
             this.scene.addChild(this.image);
@@ -41,6 +41,10 @@ export default class Scene {
         this.active = false;
     }
 
+    hide() {
+
+    }
+    
     resume() {
         console.log('scene ' + this.name + ' resume');
         this.active = true;

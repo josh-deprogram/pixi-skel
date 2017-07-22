@@ -1,8 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Image from 'components/image';
-import SCREENUTIL from 'utils/screen';
-
-const SCREEN = new SCREENUTIL();
+// import SCREENUTIL from 'utils/screen';
+// const SCREEN = new SCREENUTIL();
 
 export default class Scene {
   
@@ -29,10 +28,6 @@ export default class Scene {
             this.resume();
         } else {        
             this.started = true;
-            this.image = new Image('assets/images/skull.png', true);
-            this.image.x = SCREEN.centerX;
-            this.image.y = SCREEN.centerY;
-            this.scene.addChild(this.image);
         }
     }
 
@@ -41,6 +36,10 @@ export default class Scene {
         this.active = false;
     }
 
+    hide() {
+
+    }
+    
     resume() {
         console.log('scene ' + this.name + ' resume');
         this.active = true;
@@ -55,12 +54,12 @@ export default class Scene {
 
     animate() {
         if(this.active) {
-            this.image.rotation += 0.09;
+            console.log('scene ' + this.name + ' ticker');
         }
     }
 
     resize() {
-        SCREEN.set();
+
     }
     
 }

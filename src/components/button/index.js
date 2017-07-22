@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-export default function(textures, container, onTap, onHover, onOut) {
+export default (textures, container, onTap, onHover, onOut) => {
     
     // create the textures
     const textureButton = PIXI.Texture.fromImage(textures.default);

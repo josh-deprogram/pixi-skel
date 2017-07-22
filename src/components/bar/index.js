@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-export default function() {
+export default () => {
     const bar = new PIXI.Graphics();
 
     bar.beginFill(0x00ff87);

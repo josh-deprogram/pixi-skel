@@ -1,4 +1,5 @@
-<img src="https://raw.githubusercontent.com/josh-deprogram/skelo/master/public/assets/images/skelo.png" width="150">
+<p align="center"><img src="https://raw.githubusercontent.com/josh-deprogram/skelo/master/public/assets/images/skelo.png" width="150" style='width:30%;'>
+</p>
 
 'skeleton project' to get up and running quickly with an interactive app, utilising PixiJS (v4) & React & Create-React-App. CRA chosen due it being great as a base react project (imo).
 
@@ -12,5 +13,15 @@ Components are abractions to PixiJS features
 ```js
 yarn start
 ```
+### FEATURES
+* Scene Manager (WIP)
+* Abstracted components
+* Screen Utils
+
+### TODO
+* More base component elements (Fonts, Animated Sprites, Masks etc)
+* Audio triggers
+* Better resize handler
+
 
 This is all very much WIP so it will be changing ALOT!

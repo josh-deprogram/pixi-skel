@@ -1,6 +1,6 @@
 import * as PIXI from 'pixi.js';
 
-export default function(texture, center, container) {
+export default (texture, center, container) => {
     const image = PIXI.Sprite.fromImage(texture)
     
     if (center) image.anchor.set(0.5);

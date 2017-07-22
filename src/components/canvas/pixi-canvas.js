@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import {TweenMax} from "gsap";
 import * as PIXI from 'pixi.js';
-import _ from 'lodash';
 
 import Image from 'components/image';
 import Button from 'components/button';
-import {Scene1} from 'components/scenes';
+import {ChangeScene, Scene1, Scene2} from 'components/scenes';
 import SCREENUTIL from 'utils/screen';
 
 import "assets/style/skelo.css";
 
-const PARTICLES = 70;
+const PARTICLES = 500;
 const SCREEN = new SCREENUTIL();
 const SCENES = [];
 
@@ -34,10 +33,20 @@ export default class PixiCanvas extends Component {
 		
 		// create the root of the scene graph
 		this.base = new PIXI.Container();
-		
+		this.scenes = new PIXI.Container();
 		this.containerUI = new PIXI.Container();
 		this.containerUI.width = SCREEN.width;
 		this.containerUI.height = SCREEN.height;
+
+		// Add the Scenes
+		this.scene1 = new Scene1(this.scenes, 'scene1');
+		this.scene2 = new Scene2(this.scenes, 'scene2');
+		
+		// Add scenes to the sorter Array
+		SCENES.push(this.scene1, this.scene2);
+
+		// Switch Scene
+		ChangeScene(SCENES, 'scene1');
 
 		// Create sprite
 		this.image = new Image('assets/images/title-bg.jpg', true);
@@ -61,34 +70,22 @@ export default class PixiCanvas extends Component {
 		this.button = new Button(textures, null, this.createShapes);
 		this.button.x = SCREEN.width - 200;
 		this.button.y = SCREEN.centerY;
+
+		const navButton1 = new Button(textures, null, ChangeScene.bind(this, SCENES, 'scene1', 'scene2'));
+		const navButton2 = new Button(textures, null, ChangeScene.bind(this, SCENES, 'scene2', 'scene1'));
+		navButton2.x = 530;
+		this.containerUI.addChild(navButton1);
+		this.containerUI.addChild(navButton2);
+
 		this.containerUI.addChild(this.button);
 
 		// Add the UI
 		this.canvas.stage.addChild(this.base);
+		this.canvas.stage.addChild(this.scenes);
 		this.canvas.stage.addChild(this.containerUI);
-
-		// Add the Scenes
-		this.scene1 = new Scene1(this.canvas.stage, 'scene1');
-		this.scene1.init();
-		
-		this.changeScene('scene1')
-
-		SCENES.push(this.scene1);
 
 		// start the ticker
 		this.canvas.ticker.add((delta) => this.animate(delta))
-	}
-
-	changeScene(nextScene, prevScene) {
-		
-		const newScene = _.find(SCENES, {'name': nextScene});
-		console.log(newScene)
-		// newScene.start();
-
-		if(prevScene) {
-			const oldScene = _.find(SCENES, {'name': prevScene});
-			oldScene.pause();
-		}
 	}
 
 	createShapes() {
@@ -100,7 +97,7 @@ export default class PixiCanvas extends Component {
 			skull.rotationSet = Math.random() * 0.04 + 0.02;
 			this.skullContainer.push(skull);
 			this.base.addChild(skull);
-			TweenMax.fromTo(skull.scale, .8, {x:0, y:0}, { x: scale, y: scale, ease: TweenMax.Bounce.easeOut, delay: scale})
+			TweenMax.fromTo(skull.scale, .8, {x:0, y:0}, { x: scale, y: scale, ease: TweenMax.Bounce.easeOut, delay: 0.006 * i})
 		}
 	}
 
@@ -113,11 +110,9 @@ export default class PixiCanvas extends Component {
 	animate(delta) {
 
 		const time = Date.now() * 0.005;
-		// this.image.rotation += 0.01 * delta;
-		this.rotateBar(delta);
-		
 		this.title.scale.x = Math.sin( time * 0.3 ) * 0.3 + 0.7;
 		this.title.scale.y = Math.cos( time * 0.3 ) * 0.2 + 0.7;
+		this.rotateBar(delta);
 
 		for (let i = 0; i < SCENES.length; i++) {
 			SCENES[i].animate();
