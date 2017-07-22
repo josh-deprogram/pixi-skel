@@ -1,4 +1,4 @@
-![SKELO](https://github.com/josh-deprogram/skelo/tree/master/public/assets/images/skelo.png)
+![SKELO](https://raw.githubusercontent.com/josh-deprogram/skelo/master/public/assets/images/skelo.png)
 
 # SKELO
 'skeleton project' to get up and running quickly with an interactive app, utilising PixiJS (v4) & React & Create-React-App. CRA chosen due it being great as a base react project (imo).
