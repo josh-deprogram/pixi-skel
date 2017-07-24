@@ -5,5 +5,5 @@ import Scene2 from './scene2';
 export { 
   ChangeScene,
   Scene1,
-  Scene2,
+  Scene2
 }

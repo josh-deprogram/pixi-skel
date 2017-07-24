@@ -1,7 +1,4 @@
 import * as PIXI from 'pixi.js';
-import Image from 'components/image';
-// import SCREENUTIL from 'utils/screen';
-// const SCREEN = new SCREENUTIL();
 
 export default class Scene {
   
@@ -9,9 +6,8 @@ export default class Scene {
         this.container = container;
         this.name = name;
         this.scene = new PIXI.Container();
-        this.started = false;
         this.active = false;
-
+        this.playing = false;
         this.init();
     }
 
@@ -22,13 +18,19 @@ export default class Scene {
     
     start() {
         console.log('scene ' + this.name + ' start');
-        this.active = true;
 
-        if(this.started) {
+        if(this.playing) {
             this.resume();
         } else {        
-            this.started = true;
+            this.playing = true;
+            this.started();
         }
+        
+        this.active = true;
+    }
+
+    started() {
+
     }
 
     pause() {
@@ -37,9 +39,9 @@ export default class Scene {
     }
 
     hide() {
-
+        
     }
-    
+
     resume() {
         console.log('scene ' + this.name + ' resume');
         this.active = true;
@@ -48,11 +50,11 @@ export default class Scene {
     remove() {
         console.log('scene ' + this.name + ' remove');
         this.active = false;
-        this.started = false;
+        this.playing = false;
         this.container.removeChild(this.scene);
     }
 
-    animate() {
+    animate(delta) {
         if(this.active) {
             console.log('scene ' + this.name + ' ticker');
         }

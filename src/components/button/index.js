@@ -2,6 +2,18 @@ import * as PIXI from 'pixi.js';
 
 export default (textures, container, onTap, onHover, onOut) => {
     
+    // Use placeholder textures if none provided.
+    if (textures && !textures.default) textures.default = 'assets/images/button.jpg';
+    if (textures && !textures.over) textures.default = 'assets/images/button_over.jpg';
+    if (textures && !textures.down) textures.default = 'assets/images/button_down.jpg';
+    if (!textures) {
+        textures = {
+            default: 'assets/images/button.jpg',
+            over: 'assets/images/button_over.jpg',
+            down: 'assets/images/button_down.jpg'
+        };
+    }
+
     // create the textures
     const textureButton = PIXI.Texture.fromImage(textures.default);
     const textureButtonDown = PIXI.Texture.fromImage(textures.down);

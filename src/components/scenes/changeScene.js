@@ -12,7 +12,7 @@ export default (SCENES, nextScene, prevScene, hidePrev) => {
     }
 
     if(hidePrev) {
-        const oldScene = _.find(SCENES, {'name': prevScene});
-        oldScene.hide();
+        const hideScene = _.find(SCENES, {'name': prevScene});
+        hideScene.hide();
     }
 }
