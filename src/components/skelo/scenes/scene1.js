@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import Image from 'components/image';
+import Image from 'components/skelo/image';
 import SCREENUTIL from 'utils/screen';
 import {TweenMax} from "gsap";
 import Scene from './scene';
@@ -26,6 +26,10 @@ export default class SceneContainer extends Scene {
         // Add containers to Scene
         this.scene.addChild(this.base);
         this.scene.addChild(this.ui);
+        this.scene.pivot.x = SCREEN.centerX;
+        this.scene.pivot.y = SCREEN.centerY;
+        this.scene.x = SCREEN.centerX;
+        this.scene.y = SCREEN.centerY;
         this.image = new Image('assets/images/skull.png', true);
         this.image.x = SCREEN.centerX;
         this.image.y = SCREEN.centerY;
@@ -41,17 +45,15 @@ export default class SceneContainer extends Scene {
     }
 
     hide(){
-        this.blurFilter.blur = 20; 
+        TweenMax.to(this.blurFilter, .8, {blur:10});
+        TweenMax.to(this.scene.scale, .8, {x:2, y:2});
         this.scene.filters = [this.blurFilter];
-        TweenMax.to(this.scene.scale, .5, {x:1.3, y:1.3});
-        // this.scene.alpha = 0.3;
     }
 
-    resume(){
-        this.blurFilter.blur = 0; 
+    resume(){ 
+        TweenMax.to(this.blurFilter, 0.2, {blur:0, overwrite:true});
         this.scene.filters = [this.blurFilter];
         TweenMax.to(this.scene.scale, .2, {x:1, y:1});
-        // this.scene.alpha = 1;
     }
 
     resize() {

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import * as PIXI from 'pixi.js';
 
-import Image from 'components/image';
-import Button from 'components/button';
-import {ChangeScene, Scene1, Scene2} from 'components/scenes';
+import Image from 'components/skelo/image';
+import Button from 'components/skelo/button';
+import { ChangeScene, Scene1, Scene2, Scene3 } from 'components/skelo/scenes';
 import SCREENUTIL from 'utils/screen';
 
 import "assets/style/skelo.css";
@@ -23,7 +23,7 @@ export default class PixiCanvas extends Component {
 
 		//Setup PIXI Canvas in componentDidMount
 		this.canvas = new PIXI.Application(SCREEN.width, SCREEN.height, {antialias: true, transparent: true, resolution: 1});
-		this.refs.gameCanvas.appendChild(this.canvas.view);
+		this.appCanvas.appendChild(this.canvas.view);
 		
 		// create the root of the scene graph
 		this.base = new PIXI.Container();
@@ -35,9 +35,10 @@ export default class PixiCanvas extends Component {
 		// Create the Scenes
 		this.scene1 = new Scene1(this.scenes, 'scene1');
 		this.scene2 = new Scene2(this.scenes, 'scene2');
+		this.scene3 = new Scene3(this.scenes, 'scene3');
 		
 		// Add scenes to the sorter Array
-		SCENES.push(this.scene1, this.scene2);
+		SCENES.push(this.scene1, this.scene2, this.scene3);
 
 		// Switch Scene
 		ChangeScene(SCENES, 'scene1');
@@ -55,16 +56,27 @@ export default class PixiCanvas extends Component {
 		this.title.y = SCREEN.height - 100;
 		this.containerUI.addChild(this.title);
 
-		const navButton1 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene1', 'scene2', true));
-		const navButton2 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene2', 'scene1', true));
+		// Create the Nav menu
+		const navUI = new PIXI.Container();
+		const buttonW = (SCREEN.width / 3) - 10;
+		const navButton1 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene1'));
+		const navButton2 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene2'));
+		const navButton3 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene3'));
+
 		navButton1.anchor.set(0);
 		navButton2.anchor.set(0);
-		navButton2.x = 500;
-		console.log(navButton1)
-		// navButton1.anchor = 0;
-		this.containerUI.addChild(navButton1);
-		this.containerUI.addChild(navButton2);
+		navButton3.anchor.set(0);
+		navButton1.width = navButton2.width = navButton3.width = buttonW;
+		navButton1.height = navButton2.height = navButton3.height = 60;
+		navButton2.x = buttonW + 15;
+		navButton3.x = (buttonW * 2) + 30;
+		navUI.y = 120;
 
+		navUI.addChild(navButton1);
+		navUI.addChild(navButton2);
+		navUI.addChild(navButton3);
+		this.containerUI.addChild(navUI);
+		
 		// Add the UI
 		this.canvas.stage.addChild(this.base);
 		this.canvas.stage.addChild(this.scenes);
@@ -97,6 +109,6 @@ export default class PixiCanvas extends Component {
 	}
 
 	render() {
-		return <div className="game-canvas-container" ref="gameCanvas" />;
+		return <div className="app-canvas-container" ref={ (ref) => this.appCanvas = ref } />;
 	}
 }

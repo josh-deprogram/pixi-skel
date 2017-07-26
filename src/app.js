@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Canvas from 'components/canvas/pixi-canvas';
+import Canvas from 'components/canvas';
 import 'assets/style/app.css';
 
 class App extends Component {
