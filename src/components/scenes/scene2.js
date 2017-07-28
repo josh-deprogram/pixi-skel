@@ -1,18 +1,21 @@
-import Image from 'components/skelo/image';
-import SCREENUTIL from 'utils/screen';
+import SCREENUTIL from 'components/skelo/utils/screen';
 import {TweenMax} from "gsap";
 import Scene from 'components/skelo/scene';
-
+import Font from 'components/skelo/font';
+import {FONTSTYLE} from 'config';
 const SCREEN = new SCREENUTIL();
 
 export default class SceneContainer extends Scene {
     
     started() {
         this.centerAnchor();
-        this.image = new Image('assets/images/title.png', true);
-        this.image.x = SCREEN.centerX;
-        this.image.y = SCREEN.centerY;
-        this.scene.addChild(this.image);
+
+        this.text = new Font('THIS IS \nSCENE 2', FONTSTYLE);
+
+        this.text.x = SCREEN.centerX;
+        this.text.y = SCREEN.centerY;
+        this.text.anchor.set(0.5);
+        this.scene.addChild(this.text);
 
         TweenMax.set(this.scene.scale, {x:0, y:0});
         this.resume();
@@ -20,7 +23,7 @@ export default class SceneContainer extends Scene {
 
     animate() {
         if(this.active) {
-            this.image.rotation += 0.09;
+            this.text.rotation -= 0.009;
         }
     }
 

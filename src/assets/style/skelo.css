@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Bowlby+One+SC');
+
 .app-canvas-container{
     position: absolute;
     top: 0;
@@ -18,5 +20,6 @@ h1 {
     text-align: center;
     z-index: 2;
     color: white;
+    font-family: 'Bowlby One SC', cursive;;
     pointer-events: none;
 }

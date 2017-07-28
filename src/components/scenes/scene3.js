@@ -1,17 +1,31 @@
-import Image from 'components/skelo/image';
-import SCREENUTIL from 'utils/screen';
+import SCREENUTIL from 'components/skelo/utils/screen';
 import {TweenMax} from "gsap";
 import Scene from 'components/skelo/scene';
-
+import Font from 'components/skelo/font';
+import Movieclip from 'components/skelo/movieclip'
+// import Image from 'components/skelo/image';
+import {FONTSTYLE} from 'config';
 const SCREEN = new SCREENUTIL();
 
 export default class SceneContainer extends Scene {
     
     started() {
-        this.image = new Image('assets/images/skelo.png', true);
-        this.image.x = SCREEN.centerX;
-        this.image.y = SCREEN.centerY;
-        this.scene.addChild(this.image);
+        
+        this.text = new Font('THIS IS \nSCENE 3', FONTSTYLE);
+
+        this.text.x = SCREEN.centerX;
+        this.text.y = SCREEN.centerY;
+        this.text.anchor.set(0.5);
+        this.scene.addChild(this.text);
+       
+        this.movie = new Movieclip('assets/data/eyes.json', 'Eyes-Surprise_', 53, 23, (sprite) => {
+            this.movie = sprite;
+            this.scene.addChild(this.movie);
+            this.movie.play();
+            this.movie.anchor.set(0.5);
+            this.movie.x = SCREEN.centerX;
+            this.movie.y = SCREEN.centerY;
+        });
 
         this.scene.position.x = SCREEN.width;
         this.resume();
@@ -19,7 +33,8 @@ export default class SceneContainer extends Scene {
 
     animate() {
         if(this.active) {
-            this.image.rotation += 0.009;
+            this.text.rotation += 0.009;
+            this.movie.rotation -= 0.009;
         }
     }
 

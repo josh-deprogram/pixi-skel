@@ -5,7 +5,7 @@ import Image from 'components/skelo/image';
 import Button from 'components/skelo/button';
 import { Scene1, Scene2, Scene3 } from 'components/scenes';
 import { ChangeScene } from 'components/skelo/scene/utils'
-import SCREENUTIL from 'utils/screen';
+import SCREENUTIL from 'components/skelo/utils/screen';
 
 import "assets/style/skelo.css";
 

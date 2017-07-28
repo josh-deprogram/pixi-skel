@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js';
-import SCREENUTIL from 'utils/screen';
+import SCREENUTIL from 'components/skelo/utils/screen';
 export default class Scene {
   
     constructor(container, name, allscenes) {
@@ -13,12 +13,12 @@ export default class Scene {
     }
 
     init() {
-        console.log('scene ' + this.name + ' init');
+        // console.log('scene ' + this.name + ' init');
         this.container.addChild(this.scene);
     }   
     
     start() {
-        console.log('scene ' + this.name + ' start');
+        // console.log('scene ' + this.name + ' start');
 
         if(this.playing) {
             this.resume();
@@ -35,7 +35,7 @@ export default class Scene {
     }
 
     pause() {
-        console.log('scene ' + this.name + ' pause');
+        // console.log('scene ' + this.name + ' pause');
         this.active = false;
     }
 
@@ -44,12 +44,12 @@ export default class Scene {
     }
 
     resume() {
-        console.log('scene ' + this.name + ' resume');
+        // console.log('scene ' + this.name + ' resume');
         this.active = true;
     }
 
     remove() {
-        console.log('scene ' + this.name + ' remove');
+        // console.log('scene ' + this.name + ' remove');
         this.active = false;
         this.playing = false;
         this.container.removeChild(this.scene);
@@ -65,7 +65,7 @@ export default class Scene {
 
     animate(delta) {
         if(this.active) {
-            console.log('scene ' + this.name + ' ticker');
+            // console.log('scene ' + this.name + ' ticker');
         }
     }
 

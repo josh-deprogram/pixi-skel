@@ -1,10 +1,10 @@
 import * as PIXI from 'pixi.js';
 import Image from 'components/skelo/image';
 import Button from 'components/skelo/button';
-import SCREENUTIL from 'utils/screen';
+import SCREENUTIL from 'components/skelo/utils/screen';
 import {TweenMax} from "gsap";
 import Scene from 'components/skelo/scene';
-import { ChangeScene } from 'components/skelo/scene/utils';
+import { ChangeScene } from './index';
 
 const SCREEN = new SCREENUTIL();
 
