@@ -1,15 +1,17 @@
 import * as PIXI from 'pixi.js';
 import Image from 'components/skelo/image';
+import Button from 'components/skelo/button';
 import SCREENUTIL from 'utils/screen';
 import {TweenMax} from "gsap";
-import Scene from './scene';
+import Scene from 'components/skelo/scene';
+import { ChangeScene } from 'components/skelo/scene/utils';
 
 const SCREEN = new SCREENUTIL();
 
 export default class SceneContainer extends Scene {
   
-    constructor(container, name) {
-        super(container, name);
+    constructor(container, name, allscenes) {
+        super(container, name, allscenes);
 
         this.base = new PIXI.Container();
         this.ui = new PIXI.Container();
@@ -20,21 +22,31 @@ export default class SceneContainer extends Scene {
         // Visual fx props
         this.blurFilter = new PIXI.filters.BlurFilter();
         this.particles = 200;
+
+        this.onButtonPress = this.onButtonPress.bind(this);
     }
     
     started() {    
         // Add containers to Scene
         this.scene.addChild(this.base);
         this.scene.addChild(this.ui);
-        this.scene.pivot.x = SCREEN.centerX;
-        this.scene.pivot.y = SCREEN.centerY;
-        this.scene.x = SCREEN.centerX;
-        this.scene.y = SCREEN.centerY;
+        this.centerAnchor();
+
         this.image = new Image('assets/images/skull.png', true);
         this.image.x = SCREEN.centerX;
         this.image.y = SCREEN.centerY;
+
+        this.button = new Button(null, null, this.onButtonPress);
+        this.button.x = SCREEN.centerX;
+        this.button.y = SCREEN.centerY+ 200;
+
+        this.ui.addChild(this.button);
         this.ui.addChild(this.image);
         this.createShapes();
+    }
+
+    onButtonPress () {
+        ChangeScene(this.allscenes, 'scene3');
     }
 
     animate(delta) {

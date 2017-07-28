@@ -3,13 +3,14 @@ import * as PIXI from 'pixi.js';
 
 import Image from 'components/skelo/image';
 import Button from 'components/skelo/button';
-import { ChangeScene, Scene1, Scene2, Scene3 } from 'components/skelo/scenes';
+import { Scene1, Scene2, Scene3 } from 'components/scenes';
+import { ChangeScene } from 'components/skelo/scene/utils'
 import SCREENUTIL from 'utils/screen';
 
 import "assets/style/skelo.css";
 
 const SCREEN = new SCREENUTIL();
-const SCENES = [];
+const SCENES = []; // Collection containing all App Scene
 
 export default class PixiCanvas extends Component {
 
@@ -33,9 +34,9 @@ export default class PixiCanvas extends Component {
 		this.containerUI.height = SCREEN.height;
 
 		// Create the Scenes
-		this.scene1 = new Scene1(this.scenes, 'scene1');
-		this.scene2 = new Scene2(this.scenes, 'scene2');
-		this.scene3 = new Scene3(this.scenes, 'scene3');
+		this.scene1 = new Scene1(this.scenes, 'scene1', SCENES);
+		this.scene2 = new Scene2(this.scenes, 'scene2', SCENES);
+		this.scene3 = new Scene3(this.scenes, 'scene3', SCENES);
 		
 		// Add scenes to the sorter Array
 		SCENES.push(this.scene1, this.scene2, this.scene3);

@@ -1,10 +1,11 @@
 import * as PIXI from 'pixi.js';
-
+import SCREENUTIL from 'utils/screen';
 export default class Scene {
   
-    constructor(container, name) {
+    constructor(container, name, allscenes) {
         this.container = container;
         this.name = name;
+        this.allscenes = allscenes;
         this.scene = new PIXI.Container();
         this.active = false;
         this.playing = false;
@@ -52,6 +53,14 @@ export default class Scene {
         this.active = false;
         this.playing = false;
         this.container.removeChild(this.scene);
+    }
+
+    centerAnchor() {
+        const SCREEN = new SCREENUTIL();
+        this.scene.pivot.x = SCREEN.centerX;
+        this.scene.pivot.y = SCREEN.centerY;
+        this.scene.x = SCREEN.centerX;
+        this.scene.y = SCREEN.centerY;
     }
 
     animate(delta) {

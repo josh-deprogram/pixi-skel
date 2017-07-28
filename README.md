@@ -24,7 +24,6 @@ yarn start
 * Scene Manager (WIP)
 * Abstracted components
 * Screen Utils
-* GSAP
 * Pixi Renderer
 * CreateReactApp base - React / WebPack / HotReload / CSS Modules etc 
 
