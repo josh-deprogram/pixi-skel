@@ -7,3 +7,9 @@ export const FONTSTYLE = {
     stroke: '#FFFFFF',
     strokeThickness: 6
 }
+
+export const BREAKPOINTS = {
+    mobile: 480,
+    tablet: 720,
+    desktop: 1100
+}

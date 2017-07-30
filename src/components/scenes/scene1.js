@@ -1,6 +1,7 @@
 import * as PIXI from 'pixi.js';
 import Image from 'components/skelo/image';
 import Button from 'components/skelo/button';
+import Container from 'components/skelo/container';
 import SCREENUTIL from 'components/skelo/utils/screen';
 import {TweenMax} from "gsap";
 import Scene from 'components/skelo/scene';
@@ -13,8 +14,8 @@ export default class SceneContainer extends Scene {
     constructor(container, name, allscenes) {
         super(container, name, allscenes);
 
-        this.base = new PIXI.Container();
-        this.ui = new PIXI.Container();
+        this.base = new Container();
+        this.ui = new Container();
 
         this.createShapes = this.createShapes.bind(this);
         this.skullContainer = [];

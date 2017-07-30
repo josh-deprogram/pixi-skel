@@ -49,6 +49,8 @@ export default class SceneContainer extends Scene {
 
     resize() {
         SCREEN.set();
+        this.text && this.text.position.set(SCREEN.centerX, SCREEN.centerY);
+        this.movie && this.movie.position.set(SCREEN.centerX, SCREEN.centerY);
     }
     
 }

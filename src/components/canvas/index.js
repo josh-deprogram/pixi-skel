@@ -12,10 +12,6 @@ import "assets/style/skelo.css";
 
 const SCREEN = new SCREENUTIL();
 const SCENES = []; // Collection containing all App Scene
-const ratio = {
-	x: 1,
-	y: 1
-};
 
 export default class PixiCanvas extends Component {
 
@@ -64,25 +60,7 @@ export default class PixiCanvas extends Component {
 		this.containerUI.addChild(this.title);
 
 		// Create the Nav menu
-		const navUI = new Container();
-		const buttonW = (SCREEN.width / 3) - 10;
-		const navButton1 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene1'));
-		const navButton2 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene2'));
-		const navButton3 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene3'));
-
-		navButton1.anchor.set(0);
-		navButton2.anchor.set(0);
-		navButton3.anchor.set(0);
-		navButton1.width = navButton2.width = navButton3.width = buttonW;
-		navButton1.height = navButton2.height = navButton3.height = 60;
-		navButton2.x = buttonW + 15;
-		navButton3.x = (buttonW * 2) + 30;
-		navUI.y = 120;
-
-		navUI.addChild(navButton1);
-		navUI.addChild(navButton2);
-		navUI.addChild(navButton3);
-		this.containerUI.addChild(navUI);
+		this.setupNav();
 		
 		// Add the UI
 		this.canvas.stage.addChild(this.base);
@@ -91,6 +69,32 @@ export default class PixiCanvas extends Component {
 
 		// start the ticker
 		this.canvas.ticker.add((delta) => this.animate(delta))
+	}
+
+	setupNav() {
+		const buttonW = (SCREEN.width / 3) - 10;
+		if(!this.navUI) {
+			this.navUI = new Container();
+			this.navUI.navButton1 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene1'));
+			this.navUI.navButton2 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene2'));
+			this.navUI.navButton3 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene3'));
+
+			this.navUI.navButton1.anchor.set(0);
+			this.navUI.navButton2.anchor.set(0);
+			this.navUI.navButton3.anchor.set(0);
+			
+			this.navUI.y = 120;
+
+			this.navUI.addChild(this.navUI.navButton1);
+			this.navUI.addChild(this.navUI.navButton2);
+			this.navUI.addChild(this.navUI.navButton3);
+			this.containerUI.addChild(this.navUI);
+		}
+
+		this.navUI.navButton1.width = this.navUI.navButton2.width = this.navUI.navButton3.width = buttonW;
+		this.navUI.navButton1.height = this.navUI.navButton2.height = this.navUI.navButton3.height = 60;
+		this.navUI.navButton2.x = buttonW + 15;
+		this.navUI.navButton3.x = (buttonW * 2) + 30;
 	}
 
 	animate(delta) {
@@ -121,6 +125,8 @@ export default class PixiCanvas extends Component {
 		this.image.height = SCREEN.height;
 		this.image.x = SCREEN.centerX;
 		this.image.y = SCREEN.centerY;
+
+		this.setupNav();
 
 		this.canvas.renderer.resize(SCREEN.width, SCREEN.height)
 	}
