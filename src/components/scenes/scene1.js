@@ -70,6 +70,16 @@ export default class SceneContainer extends Scene {
 
     resize() {
         SCREEN.set();
+        this.centerAnchor();
+        this.image.x = SCREEN.centerX;
+        this.image.y = SCREEN.centerY;
+        this.button.x = SCREEN.centerX;
+        this.button.y = SCREEN.centerY+ 200;
+
+        for (let i = 0; i < this.skullContainer.length; i++) {
+            this.skullContainer[i].x =  Math.random() * SCREEN.width;
+            this.skullContainer[i].y =  Math.random() * SCREEN.height;
+        }
     }
     
     // Generic Scene methods..

@@ -36,8 +36,8 @@ export default class SceneContainer extends Scene {
         TweenMax.to(this.scene.scale, .4, {x:1, y:1});
     }
 
-    resize() {
-        SCREEN.set();
-    }
+    // resize() {
+    //     SCREEN.set();
+    // }
     
 }

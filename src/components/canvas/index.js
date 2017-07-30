@@ -3,6 +3,7 @@ import * as PIXI from 'pixi.js';
 
 import Image from 'components/skelo/image';
 import Button from 'components/skelo/button';
+import Container from 'components/skelo/container';
 import { Scene1, Scene2, Scene3 } from 'components/scenes';
 import { ChangeScene } from 'components/skelo/scene/utils'
 import SCREENUTIL from 'components/skelo/utils/screen';
@@ -11,6 +12,10 @@ import "assets/style/skelo.css";
 
 const SCREEN = new SCREENUTIL();
 const SCENES = []; // Collection containing all App Scene
+const ratio = {
+	x: 1,
+	y: 1
+};
 
 export default class PixiCanvas extends Component {
 
@@ -23,13 +28,14 @@ export default class PixiCanvas extends Component {
 	componentDidMount() {
 
 		//Setup PIXI Canvas in componentDidMount
-		this.canvas = new PIXI.Application(SCREEN.width, SCREEN.height, {antialias: true, transparent: true, resolution: 1});
+		this.canvas = new PIXI.Application(SCREEN.width, SCREEN.height, {antialias: true, transparent: true, resolution: 1, autoResize:true});
 		this.appCanvas.appendChild(this.canvas.view);
+		this.canvasDom = this.appCanvas.getElementsByTagName('canvas')[0];
 		
 		// create the root of the scene graph
-		this.base = new PIXI.Container();
-		this.scenes = new PIXI.Container();
-		this.containerUI = new PIXI.Container();
+		this.base = new Container();
+		this.scenes = new Container();
+		this.containerUI = new Container();
 		this.containerUI.width = SCREEN.width;
 		this.containerUI.height = SCREEN.height;
 
@@ -58,7 +64,7 @@ export default class PixiCanvas extends Component {
 		this.containerUI.addChild(this.title);
 
 		// Create the Nav menu
-		const navUI = new PIXI.Container();
+		const navUI = new Container();
 		const buttonW = (SCREEN.width / 3) - 10;
 		const navButton1 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene1'));
 		const navButton2 = new Button(null, null, ChangeScene.bind(this, SCENES, 'scene2'));
@@ -105,8 +111,18 @@ export default class PixiCanvas extends Component {
 			SCENES[i].resize();
 		}
 
-		this.canvas.width = SCREEN.width;
-		this.canvas.height = SCREEN.height;
+		this.containerUI.center();
+
+		this.title.x = SCREEN.centerX;
+		this.title.y = SCREEN.height - 100;
+		this.containerUI.pivot.set(SCREEN.centerX, SCREEN.centerY);
+
+		this.image.width = SCREEN.width;
+		this.image.height = SCREEN.height;
+		this.image.x = SCREEN.centerX;
+		this.image.y = SCREEN.centerY;
+
+		this.canvas.renderer.resize(SCREEN.width, SCREEN.height)
 	}
 
 	render() {

@@ -65,12 +65,12 @@ export default class Scene {
 
     animate(delta) {
         if(this.active) {
-            // console.log('scene ' + this.name + ' ticker');
         }
     }
 
     resize() {
-
-    }
+        this.centerAnchor();
+        // console.log('center scene;')
+    }  
     
 }
